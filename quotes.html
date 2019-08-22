@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Quotes App</title>
+  <script src="src/vue.js"></script>
+  <link rel="stylesheet" href="quotes.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+  <div id="app" class="container-fluid">
+    <div id="filterButtons" class="justify-content-center">
+      <button v-on:click="showMovieQuotes" type="button" name="button" class="btn btn-primary">MovieQuotes</button>
+      <button v-on:click="showGameQuotes" type="button" name="button" class="btn btn-secondary">GameQuotes</button>
+      <button v-on:click="grabAllAQuotes" type="button" name="button" class="btn btn-success">All Quotes</button>
+      <button v-on:click="sortToggle" type="button" name="sortToggle" class="btn btn-warning">Sort/Unsort</button>
+    </div>
+    <br>
+    <div id="searchBar" class="active-cyan-4 mb-4">
+      <input type="text" v-model="search" class="searchBar" placeholder="Search by Text or Genre(games, movies)">
+    </div>
+    <div id="quoteList" class="container">
+      <ul class="list-group lis-group-flush">
+        <li class="quote-list" v-for="quote in filteredQuotes"
+        v-bind:filteredQuotes="filteredQuotes"
+        v-bind:currentPage="currentPage">
+        {{quote.quote}}
+      <p>-{{quote.source}}, in <label class="quote_source">{{quote.context}}</label></p>
+      </li>
+    </ul>
+    <span v-if="showPreviousLink()" class="badge badge-pill badge-light" v-on:click="updatePage(currentPage - 1)"><</span>
+    {{currentPage + 1}} of {{totalPages()}}
+    <span v-if="showNextLink()" class="badge badge-pill badge-light" v-on:click="updatePage(currentPage + 1)">></span>
+    </div>
+  </div>
+  <script src="src/app.js"></script>
+</body>
+</html>
